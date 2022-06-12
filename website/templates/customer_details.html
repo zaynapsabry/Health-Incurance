@@ -1,0 +1,165 @@
+{% set sub_admin = true %}
+
+{% extends "base.html" %}
+{% block title %}Homes{% endblock %}
+{% block content %}
+<div>
+
+    <div style="">
+        <div class="d-flex justify-content-center" style="margin-right: 50px;margin-left: 50px;margin-bottom: 50px">
+            <div class="container shadow" style="background: rgba(70,211,126,0.18);padding: 29px;border-radius: 14px;">
+                <div>
+                    <div class="row">
+                        <div class="col">
+                            <div class="row" style="margin-bottom: 40px;">
+                                <div class="col-md-12 text-center">
+                                    <h2 class="text-center" style="font-size: 22px;font-weight: bold;color: navy;">Customer Details</h2>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row" style="margin-bottom: 13px;">
+                    <div class="col-xs-6 col-sm-6">
+                        <div class="row" style="padding-bottom: 8px;">
+                            <div class="col-xs-6 col-sm-6 text-end d-flex justify-content-start align-items-center" style="width: 84px;min-width: 84px;">
+                                <p class="text-start" style="color: navy;width: 110px; font-weight: bold;">Name:</p>
+                            </div>
+                            <div class="col">
+                                <div class="card">
+                                    <div class="card-body" style="padding: 8px 7px 3px 26px;">
+                                        <p class="card-title" style="font-size: 20px">{{ cus.f_name.capitalize() }} {{ cus.m_name }} {{ cus.l_name }}</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-xs-6 col-sm-6">
+                        <div class="row" style="padding-bottom: 8px;">
+                            <div class="col-xs-6 col-sm-6 text-end d-flex justify-content-start align-items-center" style="width: 84px;min-width: 84px;">
+                                <p class="text-start" style="color: navy;width: 110px; font-weight: bold;">Plan:</p>
+                            </div>
+                            <div class="col">
+                                <div class="card">
+                                    <div class="card-body" style="padding: 8px 7px 3px 26px;">
+                                        <p class="card-title" style="font-size: 20px">
+                                                {% if  cus.plan_type %}
+                                                    {{ cus.plan_type }}
+                                                {% else %}
+                                                    not enrolled in any plan.
+                                                {% endif %}
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-xs-6 col-sm-6">
+                        <div class="row" style="padding-bottom: 8px;">
+                            <div class="col-xs-6 col-sm-6 text-end d-flex justify-content-start align-items-center" style="width: 84px;min-width: 84px;">
+                                <p class="text-start" style="color: navy;width: 110px; font-weight: bold;">Phone:</p>
+                            </div>
+                            <div class="col">
+                                <div class="card">
+                                    <div class="card-body" style="padding: 8px 7px 3px 26px;">
+                                        <p class="card-title" style="font-size: 20px">{{ cus.phone }}</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-xs-6 col-sm-6">
+                        <div class="row" style="padding-bottom: 8px;">
+                            <div class="col-xs-6 col-sm-6 text-end d-flex justify-content-start align-items-center" style="width: 84px;min-width: 84px;">
+                                <p class="text-start" style="color: navy;width: 110px; font-weight: bold;">Gender:</p>
+                            </div>
+                            <div class="col">
+                                <div class="card">
+                                    <div class="card-body" style="padding: 8px 7px 3px 26px;">
+                                        <p class="card-title" style="font-size: 20px">{{ cus.gender }}</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-xs-6 col-sm-6">
+                        <div class="row" style="padding-bottom: 8px;">
+                            <div class="col-xs-6 col-sm-6 text-end d-flex justify-content-start align-items-center" style="width: 84px;min-width: 84px;">
+                                <p class="text-start" style="color: navy;width: 110px; font-weight: bold;">Address:</p>
+                            </div>
+                            <div class="col">
+                                <div class="card">
+                                    <div class="card-body" style="padding: 8px 7px 3px 26px;">
+                                        <p class="card-title" style="font-size: 20px">{{ cus.address }}</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-xs-6 col-sm-6">
+                        <div class="row" style="padding-bottom: 8px;">
+                            <div class="col-xs-6 col-sm-6 text-end d-flex justify-content-start align-items-center" style="width: 84px;min-width: 84px;">
+                                <p class="text-start" style="color: navy;width: 110px; font-weight: bold;">Age:</p>
+                            </div>
+                            <div class="col">
+                                <div class="card">
+                                    <div class="card-body" style="padding: 8px 7px 3px 26px;">
+                                        <p class="card-title" style="font-size: 20px">{{ cus.age|int }}</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-xs-6 col-sm-6">
+                        <div class="row" style="padding-bottom: 8px;">
+                            <div class="col-xs-6 col-sm-6 text-end d-flex justify-content-start align-items-center" style="width: 84px;min-width: 84px;">
+                                <p class="text-start" style="color: navy;width: 110px; font-weight: bold;">Email:</p>
+                            </div>
+                            <div class="col">
+                                <div class="card">
+                                    <div class="card-body" style="padding: 8px 7px 3px 26px;">
+                                        <p class="card-title" style="font-size: 20px">{{ cus.e_mail }}</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            <br>
+            <br>
+                    <div class="col">
+                        {% if deps|length %}
+                            <p class="text-center cen" style="font-size: 22px;text-align: center; color:navy ;padding-bottom: 10px;">Dependents</p>
+                        {% else %}
+                            <p class="text-center cen" style="text-align: center; color:navy ;padding-bottom: 20px;">Customer has no dependents.</p>
+                        {% endif %}
+                    </div>
+                <div class="row" style="margin-bottom: 13px;">
+                    <div class="col" style="width: 595.2px;min-width: 648px;">
+                        {% for dep in deps %}
+                            <div class="card" style="">
+                                <div class="card-body" style="padding: 8px 7px 3px 26px;">
+                                    <p class="card-title" style="width: 179%; font-size: 20px">
+                                        {{ dep.name.capitalize() }} - {% if cus.gender.lower() == 'male' %}his{% else %}her {% endif %}
+                                        {{ dep.kinship }} - {{ dep.age|int}} years old - enrolled in {{ dep.plan_type }} plan <br /></p>
+                                </div>
+                            </div>
+                        {% endfor %}
+                    </div>
+                </div>
+            <br>
+            <br>
+            <br>
+
+                <div class="d-flex justify-content-center">
+                    <button onclick="window.location.href='{{ url_for('views.view_claims', id=cus.id) }}';" class="btn btn-primary" type="button" style="width: 189px;height: 44px;background: rgb(25,64,123);margin-right: 11px;">View all claims</button>
+                    <button onclick="window.location.href='{{ url_for('views.view_claims', id=cus.id) + "?unresolved=1" }}';" class="btn btn-primary" type="button" style="width: 197px;height: 44px;background: rgb(25,64,123);margin-left: 11px;">View unresolved claims</button>
+                </div>
+            <br>
+            <br>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

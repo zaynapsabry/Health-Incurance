@@ -1,0 +1,95 @@
+{% if is_cus %}
+    {% set sub_cus = true %}
+{% else %}
+    {% set sub_admin = true %}
+{% endif %}
+
+{% extends "base.html" %}
+{% block title %}Homes{% endblock %}
+{% block content %}
+    <div>
+    <div>
+        <div>
+            <div class="d-lg-flex justify-content-lg-center"></div>
+        </div>
+        <div class="d-lg-flex justify-content-center justify-content-lg-center" style="margin-right: 100px;margin-left: 100px;margin-top: 24px;margin-bottom: 50px;">
+            <div class="container shadow" style="background: rgba(70,211,126,0.18);padding: 29px;border-radius: 14px;">
+                <div>
+                    <div class="row" style="margin-top: -17px;padding-top: 51px;padding-bottom: -8px;border-top-color: var(--bs-cyan);">
+                        <div class="col">
+                            <div class="row">
+                                <div class="col-md-12 text-center">
+                                {% if not is_cus and not latest %}
+                                    <h6 class="text-center" style="background: var(--bs-yellow);padding: 9px 9px 13px;margin-bottom: 18px;color: var(--bs-indigo);font-size: 18px;">{% if not unresolved %}All{% else %}Unresolved{% endif %} claims filed by {{ customer.f_name + ' ' + customer.l_name }}</h6>
+                                {% elif latest %}
+                                    <h6 class="text-center" style="background: var(--bs-yellow);padding: 9px 9px 13px;margin-bottom: 18px;color: var(--bs-indigo);font-size: 18px;">Latest filed claims</h6>
+                                {% else %}
+                                    <h6 class="text-center" style="background: var(--bs-yellow);padding: 9px 9px 13px;margin-bottom: 18px;color: var(--bs-indigo);font-size: 18px;">Your Claims</h6>
+                                {% endif %}
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            <br>
+            <br>
+
+            {% if claims|length == 0 %}
+                {% if is_cus %}
+                    <div style="text-align:center"><h4>You have no claims.</h4></div>
+                {% elif unresolved %}
+                    <div style="text-align:center"><h4>No unresolved claims for this user.</h4></div>
+                {% elif latest %}
+                    <div style="text-align:center"><h4>No Latest claims are available.</h4></div>
+                {% else %}
+                    <div style="text-align:center"><h4>Customer didn't file any claims.</h4></div>
+                {% endif %}
+
+            {% else %}
+
+            <div class="d-flex d-sm-flex d-md-flex d-lg-flex d-xl-flex d-xxl-flex justify-content-center">
+                <div class="row" style="width: 938.6px;">
+                    <div class="col d-lg-flex align-items-lg-center" style="width: 20%;min-width: 499px;">
+                        <p style="font-weight: bold; font-size:19px; text-align: left;width: 30%;">Subject</p>
+                        <p style="font-weight: bold; font-size:19px; text-align: left;width: 30%;">Filed Date</p>
+                        <p style="font-weight: bold; font-size:19px; text-align: left;width: 30%;">Status</p>
+                        <p style="min-width: 93px;max-width: 93px;"></p>
+                    </div>
+                </div>
+            </div>
+
+            {% endif %}
+
+            {% for claim in claims %}
+                <div class="d-flex d-sm-flex d-md-flex d-lg-flex d-xl-flex d-xxl-flex justify-content-center">
+                    <ul class="list-group" style="width: 938.6px;">
+                        <li class="list-group-item">
+                            <div class="row">
+                                <div class="col d-lg-flex align-items-lg-center" style="width: 20%;min-width: 499px;">
+
+                                    <p style="font-size:19px; text-align: left;width: 40%;">{{ claim.expenses_subject }}</p>
+                                    <p style="font-size:19px; text-align: left;width: 40%;">{{ claim.f_date }}</p>
+                                                {% if not claim.is_resolved %}
+                                                    <p style="width: 20%;">Not resolved</p>
+                                                {% elif claim.status %}
+                                                    <p style="width: 20%;color:darkblue; ">Accepted</p>
+                                                {% else %}
+                                                    <p style="width: 20%;color: red ;">Denied</p>
+                                                {% endif %}
+                                </div>
+                                {% if is_cus %}
+                                    <div class="col text-end" style="min-width: 218px;max-width: 218px;"><button onclick="window.location.href='{{ url_for( 'views.view_my_claim' , cid=claim.id ) }}';" class="btn btn-primary" type="button" style="margin-right: 6px;font-size: 14px;">More Details</button></div>
+                                {% else %}
+                                    <div class="col text-end" style="min-width: 218px;max-width: 218px;"><button onclick="window.location.href='{{ url_for( 'views.view_claim' , cid=claim.id ) }}';" class="btn btn-primary" type="button" style="margin-right: 6px;font-size: 14px;">More Details</button></div>
+                                {% endif %}
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+            {% endfor %}
+            </div>
+        </div>
+    </div>
+</div>
+
+{% endblock %}

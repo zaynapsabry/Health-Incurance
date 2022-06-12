@@ -1,0 +1,137 @@
+{% if is_cus %}
+    {% set sub_cus = true %}
+{% else %}
+    {% set sub_admin = true %}
+{% endif %}
+
+{% extends "base.html" %}
+{% block title %}Homes{% endblock %}
+{% block content %}
+<div class="d-lg-flex justify-content-center justify-content-lg-center" style="margin-top: 0px;margin-bottom: 50px;">
+    <div class="container text-center shadow" style="background: rgba(15,149,109,0.07);border-radius: 14px;transform: scale(0.88);">
+        <div class="row" style="margin-top: -17px;padding-top: 51px;padding-bottom: 56px;border-top-color: var(--bs-cyan);">
+            <div class="col">
+                <form id="form1" class="text-center" method="post">
+                    <div class="card" style="background: rgba(255,193,7,0);">
+                        <h4 class="text-center" style="background: var(--bs-yellow);padding-bottom: 9px;padding-top: 6px;">Insurance Claim info</h4>
+                        <div class="row">
+                            <div class="col">
+                                <div class="text-center justify-content-center"><label class="form-label" style="margin-top: 29px;font-weight: bold;font-size: 22px;color: #15674f;">Filed by</label>
+                                    <div class="d-flex justify-content-center">
+                                        <div class="card">
+                                            <div class="card-body">
+                                                <header></header>
+                                                {% if not is_cus %}
+                                                    <a  style="cursor: pointer; color: blue" href="{{ url_for( 'views.view_customer' , id=filed.id ) }}"><h5 style="cursor: pointer;margin-bottom: 0; width:300px;">{{ filed.f_name }} {{ filed.m_name}} {{ filed.l_name}}</h5></a>
+                                                {% else %}
+                                                   <h5 style="cursor: pointer;margin-bottom: 0; width:300px;">{{ filed.f_name }} {{ filed.m_name}} {{ filed.l_name}}</h5>
+                                                {% endif %}
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col">
+                                <div class="text-center justify-content-center"><label class="form-label" style="margin-top: 29px;font-weight: bold;font-size: 22px;color: #15674f;">Status</label>
+                                    <div class="d-flex justify-content-center">
+                                        <div class="card">
+                                            <div class="card-body">
+                                                <header></header>
+                                                {% if not claim.is_resolved %}
+                                                    <h5 style=" margin-bottom: 0; width:300px;">Not resolved</h5>
+                                                {% elif claim.status %}
+                                                    <h5 style="color:darkblue ; margin-bottom: 0; width:300px;">Accepted</h5>
+                                                {% else %}
+                                                    <h5 style="color: red ; margin-bottom: 0; width:300px;">Denied</h5>
+                                                {% endif %}
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col">
+                                <div class="text-center justify-content-center"><label class="form-label" style="margin-top: 29px;font-weight: bold;font-size: 22px;color: #15674f;">Hospital</label>
+                                    <div class="d-flex justify-content-center">
+                                        <div class="card">
+                                            <div class="card-body">
+                                                <header></header>
+                                                <h5 style="margin-bottom: 0; width:300px;">{{ hos }}</h5>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col">
+                                <div><label class="form-label" style="margin-top: 29px;font-weight: bold;font-size: 22px;color: #15674f;">Expanses Subject</label>
+                                    <div class="d-flex d-xxl-flex justify-content-center justify-content-xxl-center">
+                                        <div class="card">
+                                            <div class="card-body">
+                                                <header></header>
+                                                <h5 style="margin-bottom: 0; width:300px;">{{ claim.expenses_subject }}</h5>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col">
+                                <div><label class="form-label" style="margin-top: 29px;font-weight: bold;font-size: 22px;color: #15674f;">Beneficiary</label>
+                                    <div class="d-flex justify-content-center">
+                                        <div class="card">
+                                            <div class="card-body">
+                                                <header></header>
+                                                <h5 style="margin-bottom: 0; width:300px;">{{ ben }}</h5>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col">
+                                <div><label class="form-label" style="margin-top: 29px;font-weight: bold;font-size: 22px;color: #15674f;">Expanses Amount (EGP)</label>
+                                    <div class="d-flex justify-content-center">
+                                        <div class="card">
+                                            <div class="card-body">
+                                                <header></header>
+                                                <h5 style="margin-bottom: 0; width:300px;">{{ claim.expenses }}</h5>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    <div class="row">
+                        <div class="col">
+                                <div><label class="form-label" style="margin-top: 29px;font-weight: bold;font-size: 22px;color: #15674f;">Filed Date</label>
+                                    <div class="d-flex justify-content-center">
+                                        <div class="card">
+                                            <div class="card-body">
+                                                <header></header>
+                                                <h5 style="margin-bottom: 0; width:300px;">{{ claim.f_date }}</h5>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        <div class="col">
+
+                        </div>
+                    </div>
+                    <br>
+                        <div><label class="form-label" style="margin-top: 29px;font-weight: bold;font-size: 22px;color: #15674f;">Expanses Details</label><textarea class="form-control form-control-lg" style="height: 145px;" required minlength="1" maxlength="2048" name="details" readonly>{{ claim.expenses_details }}</textarea></div>
+                    </div>
+                    <div></div>
+                    {% if not claim.is_resolved and not is_cus%}
+                        <div style="padding-top: 33px;">
+                            <button name="action" value="accept" style="margin-right: 16px" class="btn btn-success btn-lg" type="submit" form="form1">Accept</button>
+                            <button name="action" value="deny" class="btn btn-danger btn-lg" type="submit" form="form1">Deny</button></div>
+                    {% endif %}
+                    <input type="hidden" value={{ claim.id }} name="claim_id"/>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

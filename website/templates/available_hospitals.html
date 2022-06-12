@@ -1,0 +1,68 @@
+{% set sub_cus = true %}
+{% extends "base.html" %}
+{% block title %}Homes{% endblock %}
+{% block content %}
+<script>
+       function available_hospitals () {
+           let plan_id = parseInt(document.getElementById('plans').value);
+           let text = '';
+           let plan_hos = {{ hospitals | tojson }};
+           let people = {{ people | tojson }};
+           let hospitals = plan_hos[plan_id];
+
+           for(let i in hospitals){
+               let hospital = hospitals[i];
+               text += "<li class='list-group-item'>";
+               text += "<p  style='font-size: 20px; color:#000066 ;text-align: left; float: left; width: 20%;' >"+ hospital['name'] +"</p>";
+               text += "<p  style='font-size: 20px; color:#660033 ;text-align: left; float: right; width: 55%;'>"+ hospital['address'] +"</p>";
+               text += "<p  style='font-size: 20px; color:darkred ;text-align: left; float: right; width: 25%;'>"+ hospital['phone'] +"</p>";
+               text += "</li>";
+           }
+           document.getElementById('hos').innerHTML = text ;
+    }
+</script>
+    <div>
+    <div>
+        <h4 style="margin-top: 6px;padding-top: 40px;padding-left: 103px;color: var(--bs-gray-dark);"></h4>
+        <div class="d-lg-flex justify-content-lg-center"></div>
+    </div>
+    <div class="d-lg-flex justify-content-center justify-content-lg-center" style="margin: 0px 100px 50px;">
+        <div class="container shadow" style="background: rgba(70,211,126,0.18);padding: 29px;border-radius: 14px;">
+
+            <div class="row" style="margin-top: -17px;padding-top: 51px;padding-bottom: 56px;border-top-color: var(--bs-cyan);">
+                <div class="col">
+                    <div class="row">
+                        <div class="col-md-12 ">
+                            <div class="d-flex ">
+                                    <h5 style="padding-right: 16px;padding-top: 7px;">Show available hospitals for <br /></h5>
+
+                                <select style="width: 300px; text-align: center; font-size: 19px" id="plans" onchange="available_hospitals();">
+                                    {% for person in people %}
+                                        {% if person.f_name %}
+                                            <option style="font-size: 18px"  value="{{ person.contract.plan_id }}" >You ({{ person.plan_type }})</option>
+                                        {% else %}
+                                            <option style="font-size: 18px"  value="{{ person.contract.plan_id }}" >{{ person.name }}, {{ person.kinship }} ({{ person.plan_type }})</option>
+                                        {%endif %}
+                                    {% endfor %}
+                                </select>
+                                </div>
+                                <br><br>
+                                    <div class="about-border"></div>
+                                    <div class="card-body">
+                                        <p  style="font-size: 18px; font-weight: bold;text-align: left; float: left; width: 20%;">Name</p>
+                                        <p  style="font-size: 18px; font-weight: bold;text-align: left; float: right; width: 55%;">Address</p>
+                                        <p  style="font-size: 18px; font-weight: bold;text-align: left; float: right; width: 25%;">Contact</p>
+                                    </div>
+                            <ul class="list-group" id='hos' style="width: 100%;">
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script>
+    available_hospitals();
+</script>
+{% endblock %}
